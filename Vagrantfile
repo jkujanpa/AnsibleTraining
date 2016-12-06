@@ -53,13 +53,13 @@ Vagrant.configure(2) do |config|
 		machine.vm.network :private_network, ip: '192.168.56.11'
 	end
 
-	config.vm.define "node2" do |machine|
-		machine.vm.provider "virtualbox" do |v|
-			v.name = "node2"
-		end
-		machine.vm.hostname = "node2"
-		machine.vm.network "private_network", ip: "192.168.56.12"
-	end  
+#	config.vm.define "node2" do |machine|
+#		machine.vm.provider "virtualbox" do |v|
+#			v.name = "node2"
+#		end
+#		machine.vm.hostname = "node2"
+#		machine.vm.network "private_network", ip: "192.168.56.12"
+#	end  
 
 	config.vm.define "controller" do |machine|
 		machine.vm.provider "virtualbox" do |v|
@@ -67,6 +67,9 @@ Vagrant.configure(2) do |config|
 		end
 		machine.vm.hostname = "controller"
 		machine.vm.network "private_network", ip: "192.168.56.10"
+		machine.vm.provision :ansible_local do |ansible|
+			ansible.playbook = "playbook.yml"
+		end
 	end  
 
 	## Provisioning
